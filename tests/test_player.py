@@ -20,6 +20,7 @@ def test_add_guardians(player_one, guardians):
 
 # @pytest.mark.skip()
 def test_primary_guardian(player_one, guardians):
+    assert player_one.primary_guardian
     # Add one guardian
     player_one.add_guardian(guardians[0])
     # Later, add some more
