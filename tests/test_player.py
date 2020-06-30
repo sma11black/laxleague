@@ -1,43 +1,27 @@
-import pytest
-from laxleague.guardian import Guardian
-from laxleague.player import Player
+def test_construction(player_one):
+    assert 'Tatiana' == player_one.first_name
+    assert 'Jones' == player_one.last_name
+    assert [] == player_one.guardians
 
 
-def test_construction():
-    p = Player('Tatiana', 'Jones')
-    assert 'Tatiana' == p.first_name
-    assert 'Jones' == p.last_name
-    assert [] == p.guardians
-
-
-def test_add_guardian():
-    g = Guardian('Mary', 'Jones')
-    p = Player('Tatiana', 'Jones')
-    p.add_guardian(g)
-    assert [g] == p.guardians
+def test_add_guardian(player_one, guardians):
+    player_one.add_guardian(guardians[0])
+    assert [guardians[0]] == player_one.guardians
 
 
 # @pytest.mark.skip(reason='Have not implemented method')
-def test_add_guardians():
-    p = Player('Tatiana', 'Jones')
+def test_add_guardians(player_one, guardians):
     # Add one guardian
-    g1 = Guardian('Mary', 'Jones')
-    p.add_guardian(g1)
+    player_one.add_guardian(guardians[0])
     # Later, add some more
-    g2 = Guardian('Joanie', 'Johnson')
-    g3 = Guardian('Jerry', 'Johnson')
-    p.add_guardians((g2, g3))
-    assert [g1, g2, g3] == p.guardians
+    player_one.add_guardians((guardians[1], guardians[2]))
+    assert list(guardians) == player_one.guardians
 
 
 # @pytest.mark.skip()
-def test_primary_guardian():
-    p = Player('Tatiana', 'Jones')
+def test_primary_guardian(player_one, guardians):
     # Add one guardian
-    g1 = Guardian('Mary', 'Jones')
-    p.add_guardian(g1)
+    player_one.add_guardian(guardians[0])
     # Later, add some more
-    g2 = Guardian('Joanie', 'Johnson')
-    g3 = Guardian('Jerry', 'Johnson')
-    p.add_guardians((g2, g3))
-    assert g1 == p.primary_guardian
+    player_one.add_guardians((guardians[1], guardians[2]))
+    assert guardians[0] == player_one.primary_guardian
